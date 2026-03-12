@@ -224,30 +224,3 @@ def train_model(repo_path: str, dataset_yaml: str, epochs: int = 100):
     print("Training complete!")
     # Save the best weights (usually saved automatically in 'runs/train/...')
     return model
-
-# -----------------------------
-# Run Inference on Image or Folder
-# -----------------------------
-def run_inference(weights_path: str, path_to_input: str, conf: float = 0.5, save_result: bool = True):
-    """
-    Run YOLOv12 inference on an image or folder.
-    
-    Args:
-        weights_path (str): Path to trained weights.
-        path_to_input (str): Path to image or folder to test.
-        conf (float): Confidence threshold.
-        save_result (bool): Whether to save output image.
-        
-    Returns:
-        results: YOLOv12 inference results object
-    """
-    if not os.path.exists(weights_path):
-        raise FileNotFoundError(f"Model weights not found at: {weights_path}")
-    if not os.path.exists(path_to_input):
-        raise FileNotFoundError(f"Input path not found: {path_to_input}")
-
-    model = YOLO(weights_path)
-    results = model.predict(source=path_to_input, conf=conf, save=save_result)
-    print(f"Inference completed on: {path_to_input}")
-    return results
-
